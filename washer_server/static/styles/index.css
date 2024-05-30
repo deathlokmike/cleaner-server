@@ -1,0 +1,77 @@
+body {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 10px; /* Отступы по краям */
+    box-sizing: border-box; /* Включает отступы и границы в ширину элемента */
+}
+
+button {
+    background-color: #1E88E5;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%; /* Растягиваем кнопки по ширине */
+    max-width: 200px; /* Максимальная ширина кнопок */
+}
+
+button:hover {
+    background-color: #1565C0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    display: none; /* Изначально скрыто */
+    width: 120px;
+    height: 160px;
+    margin-left: auto; /* Центрируем изображение */
+    margin-right: auto; /* Центрируем изображение */
+}
+
+/* Адаптивная верстка */
+@media (max-width: 600px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    button {
+        flex: 1 1 calc(50% - 10px); /* Две кнопки в ряд с отступами */
+        margin: 5px; /* Отступы между кнопками */
+        padding: 10px; /* Уменьшение отступов */
+        font-size: 14px;
+    }
+
+    img {
+        width: 80px;
+        height: 120px;
+    }
+}

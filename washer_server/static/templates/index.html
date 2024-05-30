@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ESP32 Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/index.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>ESP32 Control</h1>
+    <div class="button-group">
+        <button onclick="sendMessage('start')">Start</button>
+        <button onclick="sendMessage('stop')">Stop</button>
+        <button onclick="sendMessage('check')">Check</button>
+        <button onclick="sendMessage('take_image')">Take image</button>
+    </div>
+    <img id="image" src="" alt="No image yet"/>
+</div>
+<script src="{{ url_for('static', path='scripts/index.js') }}"></script>
+</body>
+</html>

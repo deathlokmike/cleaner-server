@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "washer-server"
+version = "0.1.0"
+description = ""
+authors = ["Mikhail Drozdov <deathlokmike@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.110.0"
+uvicorn = "^0.28.0"
+pillow = "^10.2.0"
+websockets = "^12.0"
+jinja2 = "^3.1.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
