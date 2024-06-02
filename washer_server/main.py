@@ -7,7 +7,7 @@ from fastapi import FastAPI, Request, WebSocket
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
+from washer_server.services.ml_model import find_person
 app = FastAPI()
 
 websocket_clients = []
@@ -35,6 +35,9 @@ async def input_request(request: Request):
 
     image = Image.frombuffer('RGB', (160, 120), image_raw_bytes, 'raw', 'RGB;16')
     image = image.rotate(angle=270, resample=0, expand=True)
+
+    _ = find_person(image)
+
     buffered = BytesIO()
     image.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
