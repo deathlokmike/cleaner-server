@@ -14,8 +14,8 @@ body {
     text-align: center;
     width: 100%;
     max-width: 600px;
-    padding: 0 10px; /* Отступы по краям */
-    box-sizing: border-box; /* Включает отступы и границы в ширину элемента */
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
 button {
@@ -29,8 +29,8 @@ button {
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
-    width: 100%; /* Растягиваем кнопки по ширине */
-    max-width: 200px; /* Максимальная ширина кнопок */
+    width: 100%;
+    max-width: 200px;
 }
 
 button:hover {
@@ -64,9 +64,9 @@ img {
     }
 
     button {
-        flex: 1 1 calc(50% - 10px); /* Две кнопки в ряд с отступами */
-        margin: 5px; /* Отступы между кнопками */
-        padding: 10px; /* Уменьшение отступов */
+        flex: 1 1 calc(50% - 10px);
+        margin: 5px;
+        padding: 10px;
         font-size: 14px;
     }
 
