@@ -15,21 +15,18 @@ class YoloModel:
     def __init__(self):
         self.model = YOLO("yolov8n.pt")
 
+    @staticmethod
+    def draw_rectangle(image: Image, persons_box: list[tuple[float, float, float, float]]):
+        for box in persons_box:
+            draw = ImageDraw.Draw(image)
+            draw.rectangle(box, width=1, outline="#0000ff")
 
-def draw_rectangle(image: Image, cords: tuple[float, float, float, float]) -> None:
-    draw = ImageDraw.Draw(image)
-    draw.rectangle(cords, width=1, outline="#0000ff")
-
-
-def find_person_and_draw_box(image: Image) -> bool:
-    model: YOLO = YoloModel().model
-    results = model(image, verbose=True)
-    if len(results) == 0:
-        return False
-    else:
+    def find_person(self, image: Image) -> list[tuple[float, float, float, float]]:
+        results = self.model(image, verbose=True)
+        persons_boxes: list[tuple[float, float, float, float]] = []
         for res_i in results[0]:
-            class_num = int(res_i.boxes.cls)
+            class_num = int(res_i.boxes.cls.cpu())
             if class_num == 0:
-                boxes = res_i.boxes.xyxy
-                draw_rectangle(image, boxes.tolist()[0])
-    return True
+                boxes = res_i.boxes.xyxy.cpu()
+                persons_boxes.append(boxes.tolist()[0])
+        return persons_boxes

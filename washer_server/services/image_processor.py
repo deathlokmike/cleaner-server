@@ -3,8 +3,8 @@ from io import BytesIO
 
 from PIL import Image
 
-from washer_server.services.connection_manager import connection_manager
-from washer_server.services.ml_model import find_person_and_draw_box
+from washer_server.services.connection_manager import connection_manager, CleanerStatus
+from washer_server.services.ml_model import YoloModel
 
 
 def _format_image_to_base64(image: Image) -> str:
@@ -20,9 +20,13 @@ class ImageProcessor:
         image = Image.frombuffer('RGB', (160, 120), image_raw_bytes, 'raw', 'RGB;16')
         image = image.rotate(angle=270, resample=0, expand=True)
 
-        person_has_spotted = find_person_and_draw_box(image)
+        person_boxes = YoloModel().find_person(image)
+
+        if len(person_boxes) > 0:
+            await connection_manager.send_message_to_cleaner(CleanerStatus.suspended)
+            YoloModel().draw_rectangle(image, person_boxes)
+        else:
+            await connection_manager.send_message_to_cleaner(CleanerStatus.resumed)
 
         image_base64 = _format_image_to_base64(image)
         await connection_manager.send_image_to_client(image_base64)
-        if person_has_spotted:
-            await connection_manager.send_message_to_cleaner("spotted")
