@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 
-from washer_server.services.image_processor import ImageProcessor
+from cleaner.services.image_processor import ImageProcessor
 
 router = APIRouter(prefix="/api", tags=["Image processing"])
 

@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "washer-server"
+name = "cleaner"
 version = "0.1.0"
 description = ""
 authors = ["Mikhail Drozdov <deathlokmike@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.12.3"
 fastapi = "^0.110.0"
 uvicorn = "^0.28.0"
 pillow = "^10.2.0"

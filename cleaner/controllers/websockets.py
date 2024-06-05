@@ -1,9 +1,8 @@
 from fastapi import WebSocket, WebSocketDisconnect
 from fastapi.routing import APIRouter
 
-from washer_server.services.connection_manager import (ConnectionType,
-                                                       connection_manager,
-                                                       CleanerStatus)
+from cleaner.services.connection_manager import (CleanerStatus, ConnectionType,
+                                                 connection_manager)
 
 router = APIRouter(prefix="/ws")
 

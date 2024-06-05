@@ -3,8 +3,9 @@ from io import BytesIO
 
 from PIL import Image
 
-from washer_server.services.connection_manager import connection_manager, CleanerStatus
-from washer_server.services.ml_model import YoloModel
+from cleaner.services.connection_manager import (CleanerStatus,
+                                                 connection_manager)
+from cleaner.services.ml_model import YoloModel
 
 
 def _format_image_to_base64(image: Image) -> str:
