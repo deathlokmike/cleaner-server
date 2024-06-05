@@ -2,7 +2,8 @@ from fastapi import WebSocket, WebSocketDisconnect
 from fastapi.routing import APIRouter
 
 from washer_server.services.connection_manager import (ConnectionType,
-                                                       connection_manager)
+                                                       connection_manager,
+                                                       CleanerStatus)
 
 router = APIRouter(prefix="/ws")
 
@@ -13,7 +14,8 @@ async def websocket_image_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_text()
-            await connection_manager.send_message_to_cleaner(data)
+            status = CleanerStatus(data)
+            await connection_manager.send_message_to_cleaner(status)
     except WebSocketDisconnect:
         connection_manager.disconnect(websocket)
 
@@ -24,7 +26,7 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_text()
-            print(f"Received message: {data}")
-
+            print(f"Message from cleaner {data}")
+            connection_manager.parse_cleaner_message(websocket, data)
     except WebSocketDisconnect:
-        connection_manager.disconnect(websocket)
+        connection_manager.disconnect_cleaner(websocket)
