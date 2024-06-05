@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>ESP32 Control</title>
+
+    <link rel="icon" href="{{ url_for('static', path='favicon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', path='styles/index.css') }}">
 </head>
 <body>
@@ -10,8 +12,8 @@
     <div class="button-group">
         <button onclick="sendMessage('start')">Start</button>
         <button onclick="sendMessage('stop')">Stop</button>
-        <button onclick="sendMessage('check')">Check</button>
-        <button onclick="sendMessage('take_image')">Take image</button>
+        <button onclick="sendMessage('check_system')">Check</button>
+        <button onclick="sendMessage('check_camera')">Take image</button>
     </div>
     <img id="image" src="" alt="No image yet"/>
 </div>
