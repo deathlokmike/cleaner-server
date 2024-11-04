@@ -37,6 +37,14 @@ def _find_cleaner_index_by_websocket(cleaners: list["Cleaner"], websocket: WebSo
     return None
 
 
+def _get_battery_percent(log_data: str) -> float:
+    voltage = float(log_data[4:log_data.find(",cur")])
+    min_voltage = 6.0
+    max_voltage = 8.4
+    percentage = max(0, min(100, int(((voltage - min_voltage) / (max_voltage - min_voltage)) * 100)))
+    return percentage
+
+
 class ConnectionManager:
     def __init__(self):
         self._cleaners: list[Cleaner] = []
@@ -69,27 +77,32 @@ class ConnectionManager:
                 else:
                     cleaner.status = status
 
-    async def send_image_to_client(self, formatted_img: str):
+    async def send_data_to_client(self, data: str):
         for client in self._clients:
-            await client.send_text(formatted_img)
+            await client.send_text(data)
 
-    def disconnect_cleaner(self, websocket: WebSocket):
-        print("Close cleaner ")
+    async def disconnect_cleaner(self, websocket: WebSocket):
         cleaner_index = _find_cleaner_index_by_websocket(self._cleaners, websocket)
         if cleaner_index:
             self._cleaners.pop(cleaner_index)
+        await self.send_data_to_client("data:log:vol:-,cur:-,ax:-,ay:-,az:-,bat:-")
 
     def disconnect(self, websocket: WebSocket):
         self._clients.remove(websocket)
 
-    def parse_cleaner_message(self, websocket: WebSocket, data: str):
+    async def parse_cleaner_message(self, websocket: WebSocket, data: str):
         cleaner_index = _find_cleaner_index_by_websocket(self._cleaners, websocket)
         if cleaner_index is not None:
             mac_start_index = data.find("mac:")
+            log_start_index = data.find("vol:")
             if mac_start_index != -1:
                 self._cleaners[cleaner_index].mac_address = data[mac_start_index + 4:]
 
-            if data.find("done"):
+            if log_start_index != -1:
+                battery_percent = _get_battery_percent(data)
+                await self.send_data_to_client(f"data:log:{data},bat:{battery_percent}")
+
+            if data.find("done") != -1:
                 self._cleaners[cleaner_index].update(CleanerStatus.stopped)
 
 

@@ -30,4 +30,4 @@ class ImageProcessor:
             await connection_manager.send_message_to_cleaner(CleanerStatus.resumed)
 
         image_base64 = _format_image_to_base64(image)
-        await connection_manager.send_image_to_client(image_base64)
+        await connection_manager.send_data_to_client(image_base64)

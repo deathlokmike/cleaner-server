@@ -26,6 +26,6 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_text()
             print(f"Message from cleaner {data}")
-            connection_manager.parse_cleaner_message(websocket, data)
+            await connection_manager.parse_cleaner_message(websocket, data)
     except WebSocketDisconnect:
-        connection_manager.disconnect_cleaner(websocket)
+        await connection_manager.disconnect_cleaner(websocket)
