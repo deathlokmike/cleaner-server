@@ -1,77 +1,192 @@
 body {
-    background-color: #121212;
-    color: white;
-    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #202124;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100vh;
     margin: 0;
-}
-
-.container {
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-    padding: 0 10px;
+    padding: 0 1px;
     box-sizing: border-box;
 }
 
-button {
-    background-color: #1E88E5;
-    color: white;
-    border: none;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
+.container {
     width: 100%;
-    max-width: 200px;
+    max-width: 500px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 24px;
+    color: #5f6368;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+/* Стиль для блока управления */
+.control-panel {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.control-panel h2 {
+    font-size: 18px;
+    color: #5f6368;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* Стиль кнопок управления */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+button {
+    background-color: #1e88e5;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 45%;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 button:hover {
-    background-color: #1565C0;
+    background-color: #1565c0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 20px;
-    display: none; /* Изначально скрыто */
-    width: 120px;
-    height: 160px;
-    margin-left: auto; /* Центрируем изображение */
-    margin-right: auto; /* Центрируем изображение */
+button:active {
+    background-color: #0d47a1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Адаптивная верстка */
+/* Стиль для блока данных */
+.data-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    width: 100%;
+}
+
+.data-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.data-container h2 {
+    font-size: 18px;
+    color: #5f6368;
+    margin: 0;
+}
+
+.battery-status {
+    display: flex;
+    align-items: center;
+    font-size: 0.8em;
+}
+
+.battery-icon {
+    width: 20px;
+    height: 10px;
+    border: 2px solid #5f6368;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    margin-right: 4px;
+}
+
+.battery-icon::after {
+    content: "";
+    position: absolute;
+    top: 15%;
+    right: -4px;
+    width: 2px;
+    height: 70%;
+    background-color: #5f6368;
+    border-radius: 1px;
+}
+
+.battery-level {
+    height: 100%;
+    width: 100%;
+    transition: width 0.3s ease;
+}
+
+#battery-percentage {
+    font-weight: 600;
+    color: #5f6368;
+}
+
+/* Цвета батареи в зависимости от уровня заряда */
+.battery-full {
+    background-color: #4CAF50; /* Зеленый */
+}
+
+.battery-medium {
+    background-color: #FFEB3B; /* Желтый */
+}
+
+.battery-low {
+    background-color: #F44336; /* Красный */
+}
+
+.data-container .data-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+    color: #202124;
+}
+
+.data-container .data-item:last-child {
+    border-bottom: none;
+}
+
+.data-label {
+    font-weight: 500;
+    color: #5f6368;
+}
+
+.data-value {
+    font-weight: 700;
+    color: #1e88e5;
+}
+
+/* Адаптивный стиль */
 @media (max-width: 600px) {
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
     .button-group {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
+        gap: 5px;
     }
 
     button {
-        flex: 1 1 calc(50% - 10px);
-        margin: 5px;
         padding: 10px;
         font-size: 14px;
     }
 
-    img {
-        width: 80px;
-        height: 120px;
+    .data-container, .control-panel {
+        padding: 15px;
+    }
+
+    .data-container h2, .control-panel h2 {
+        font-size: 16px;
     }
 }

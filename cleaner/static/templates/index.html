@@ -1,22 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESP32 Control</title>
-
     <link rel="icon" href="{{ url_for('static', path='favicon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url_for('static', path='styles/index.css') }}">
 </head>
 <body>
+
 <div class="container">
-    <h1>ESP32 Control</h1>
-    <div class="button-group">
-        <button onclick="sendMessage('start')">Start</button>
-        <button onclick="sendMessage('stop')">Stop</button>
-        <button onclick="sendMessage('check_system')">Check</button>
-        <button onclick="sendMessage('check_camera')">Take image</button>
+    <!-- Блок управления -->
+    <div class="control-panel">
+        <h2>Control</h2>
+        <div class="button-group">
+            <button onclick="sendMessage('start')">Start</button>
+            <button onclick="sendMessage('stop')">Stop</button>
+            <button onclick="sendMessage('check_system')">Check</button>
+            <button onclick="sendMessage('check_camera')">Take image</button>
+        </div>
     </div>
-    <img id="image" src="" alt="No image yet"/>
+
+    <!-- Блок данных -->
+    <div class="data-container">
+        <div class="data-header">
+            <h2>Data</h2>
+            <div class="battery-status">
+                <div class="battery-icon">
+                    <div id="battery-icon" class="battery-level"></div>
+                </div>
+                <span id="battery-percentage">-</span>
+            </div>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Voltage</span>
+            <span id="voltage" class="data-value">-</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">Currency</span>
+            <span id="current" class="data-value">-</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">AccX</span>
+            <span id="accX" class="data-value">-</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">AccY</span>
+            <span id="accY" class="data-value">-</span>
+        </div>
+        <div class="data-item">
+            <span class="data-label">AccZ</span>
+            <span id="accZ" class="data-value">-</span>
+        </div>
+    </div>
+
+
+    <!-- Поле изображения -->
+    <img id="image" src="" alt="No image yet"
+         style="display:none; margin-top: 20px; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"/>
 </div>
+
 <script src="{{ url_for('static', path='scripts/index.js') }}"></script>
 </body>
 </html>
