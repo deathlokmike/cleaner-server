@@ -5,9 +5,9 @@ const statusIndicator = document.createElement('div');
 
 function initializeStatusIndicator() {
     const batteryContainer = document.querySelector('.battery-status');
-    statusIndicator.classList.add('status-indicator', 'disconnected'); // по умолчанию красный
+    statusIndicator.classList.add('status-indicator', 'disconnected');
     statusIndicator.textContent = connectionStatus;
-    batteryContainer.parentNode.insertBefore(statusIndicator, batteryContainer); // добавляем слева от батареи
+    batteryContainer.parentNode.insertBefore(statusIndicator, batteryContainer);
 }
 
 function sendMessage(message) {
@@ -32,7 +32,7 @@ function updateConnectionStatus(isConnected) {
 initializeStatusIndicator();
 
 function handleSocketData(data) {
-    const noDataPattern = /data:log:vol:-,cur:-,ax:-,ay:-,az:-,bat:-/;
+    const noDataPattern = /data:log:vol:-,cur:-,gx:-,gy:-,gz:-,bat:-/;
 
     if (noDataPattern.test(data)) {
         updateConnectionStatus(false);
@@ -47,18 +47,16 @@ function handleSocketData(data) {
 
         document.getElementById("voltage").textContent = dataMap["vol"] + " V";
         document.getElementById("current").textContent = dataMap["cur"] + " mA";
-        document.getElementById("accX").textContent = dataMap["ax"];
-        document.getElementById("accY").textContent = dataMap["ay"];
-        document.getElementById("accZ").textContent = dataMap["az"];
+        document.getElementById("GX").textContent = dataMap["gx"];
+        document.getElementById("GY").textContent = dataMap["gy"];
+        document.getElementById("GZ").textContent = dataMap["gz"];
 
-        // Обновляем уровень и цвет заряда батареи
         const batteryLevel = parseInt(dataMap["bat"], 10);
         const batteryIcon = document.getElementById("battery-icon");
         const batteryPercentage = document.getElementById("battery-percentage");
         batteryIcon.style.width = `${batteryLevel}%`;
         batteryPercentage.textContent = `${batteryLevel}%`;
 
-        // Применяем цвет в зависимости от уровня заряда
         batteryIcon.classList.remove("battery-full", "battery-medium", "battery-low");
         if (batteryLevel >= 67) {
             batteryIcon.classList.add("battery-full");
@@ -81,7 +79,6 @@ wsClient.onmessage = function(event) {
     }
 };
 
-// Добавляем стили для облачка состояния
 const style = document.createElement('style');
 style.innerHTML = `
     .status-indicator {
@@ -93,10 +90,10 @@ style.innerHTML = `
         margin-right: 10px;
     }
     .connected {
-        background-color: #4CAF50; /* Зеленый цвет */
+        background-color: #4CAF50;
     }
     .disconnected {
-        background-color: #F44336; /* Красный цвет */
+        background-color: #F44336;
     }
 `;
 document.head.appendChild(style);
