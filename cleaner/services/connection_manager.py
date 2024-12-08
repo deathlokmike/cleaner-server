@@ -85,7 +85,7 @@ class ConnectionManager:
         cleaner_index = _find_cleaner_index_by_websocket(self._cleaners, websocket)
         if cleaner_index:
             self._cleaners.pop(cleaner_index)
-        await self.send_data_to_client("data:log:vol:-,cur:-,gx:-,gy:-,gz:-,bat:-")
+        await self.send_data_to_client("data:log:vol:-,cur:-,ang:-,df:-,ds:-,bat:-")
 
     def disconnect(self, websocket: WebSocket):
         self._clients.remove(websocket)

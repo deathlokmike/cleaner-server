@@ -47,9 +47,9 @@ function handleSocketData(data) {
 
         document.getElementById("voltage").textContent = dataMap["vol"] + " V";
         document.getElementById("current").textContent = dataMap["cur"] + " mA";
-        document.getElementById("GX").textContent = dataMap["gx"];
-        document.getElementById("GY").textContent = dataMap["gy"];
-        document.getElementById("GZ").textContent = dataMap["gz"];
+        document.getElementById("angle").textContent = dataMap["ang"] + "°";
+        document.getElementById("front").textContent = dataMap["df"] + " cm";
+        document.getElementById("side").textContent = dataMap["ds"] + " cm";
 
         const batteryLevel = parseInt(dataMap["bat"], 10);
         const batteryIcon = document.getElementById("battery-icon");
